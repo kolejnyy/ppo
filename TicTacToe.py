@@ -87,7 +87,21 @@ def startState():
 # Return a random valid state of the game, useful for analyzing the performance of the agent
 def randomState():
 	# Return a random state
-	return []
+	while True:
+		n_moves = np.random.randint(0, 9)
+		print(n_moves)
+		player = 1
+		state = np.array([0]*9)
+
+		for _ in range(n_moves):
+			print(state)
+			poss_moves = np.array(range(9))[state==0]
+			next_move  = np.random.choice(poss_moves)
+			state[next_move]=player
+			player *= -1
+
+		if not isOver(state):
+			return state
 
 
 # ==============================================
