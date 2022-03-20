@@ -61,26 +61,10 @@ def gameScore(state):
 
 
 # ==============================================
-#	Rotations of the board
-# ==============================================
-
-# Teaching the network all symmetric positions may be beneficial
-def allSymmetries(state):
-	# Initialize result
-	res = []
-	
-	# Evaluate all symmetries of the current position
-	# [...]
-
-	# Return the result
-	return res
-
-
-# ==============================================
 #	Basic state
 # ==============================================
 
-def startState():
+def initialState():
 	# Return the starting state, according to the chosen gamestate description model
 	return [0]*9
 
@@ -89,12 +73,10 @@ def randomState():
 	# Return a random state
 	while True:
 		n_moves = np.random.randint(0, 9)
-		print(n_moves)
 		player = 1
 		state = np.array([0]*9)
 
 		for _ in range(n_moves):
-			print(state)
 			poss_moves = np.array(range(9))[state==0]
 			next_move  = np.random.choice(poss_moves)
 			state[next_move]=player
