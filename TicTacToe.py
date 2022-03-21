@@ -4,6 +4,8 @@
 
 import numpy as np
 
+import torch
+
 from matplotlib import pyplot as plt
 from matplotlib.patches import Rectangle
 
@@ -20,7 +22,7 @@ from copy import copy
 # ==============================================
 
 
-# State will be represented as a 1-dimensional array with indices corresponding
+# State will be represented as an 1-dimensional ndarray with indices corresponding
 # to the states of the fields:
 
 #	0	|	1 	| 	2
@@ -66,7 +68,7 @@ def gameScore(state):
 
 def initialState():
 	# Return the starting state, according to the chosen gamestate description model
-	return [0]*9
+	return np.array([0]*9)
 
 # Return a random valid state of the game, useful for analyzing the performance of the agent
 def randomState():
@@ -118,6 +120,12 @@ def possibleMoves(state, player):
 			res.append(move(state, player, i))
 
 	return res[:]
+
+
+# Return a mask representing which moves are valid (True) and invalid (False) in the current position
+def possibleMovesMask(state, player):
+
+	return torch.tensor(state==0)
 
 
 
