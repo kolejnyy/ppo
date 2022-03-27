@@ -3,6 +3,7 @@
 # ==============================================
 
 import numpy as np
+from openai import InvalidRequestError
 
 import torch
 
@@ -97,14 +98,20 @@ def randomState():
 # return the corresponding next position
 def move(state, player, _move):
 	
-	# Evaluate a tuple (nextState, nextPlayer) where:
+	# Evaluate a tuple (nextState, reward, nextPlayer, isFinished) where:
 	# - nextState:  represents the position after 'player' perfomrms '_move' on 'state'
+	# - reward:		represents the reward for the action
 	# - nextPlayer: represents the player whose turn it will be after the move
+	# - isFinished:	says whether this was the last move in the game
 
 	nextState = copy(state)
 	nextState[_move] = player
 
-	return (nextState, -player) 
+	nextPlayer = -player
+	isFinished = isOver(nextState)
+	reward = 1 if isFinished else 0
+
+	return (nextState, reward, nextPlayer, isFinished) 
 
 
 # Return a list containing all possible positions together with corresponding player-to-play,
