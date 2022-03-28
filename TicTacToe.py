@@ -10,7 +10,7 @@ import torch
 from matplotlib import pyplot as plt
 from matplotlib.patches import Rectangle
 
-from copy import copy
+from copy import deepcopy
 
 
 # ==============================================
@@ -104,7 +104,7 @@ def move(state, player, _move):
 	# - nextPlayer: represents the player whose turn it will be after the move
 	# - isFinished:	says whether this was the last move in the game
 
-	nextState = copy(state)
+	nextState = deepcopy(state)
 	nextState[_move] = player
 
 	nextPlayer = -player
